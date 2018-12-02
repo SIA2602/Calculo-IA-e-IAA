@@ -3,12 +3,13 @@ import numpy as np
 import sys
 
 from PyQt5 import uic
-from PyQt5.QtWidgets import QMainWindow, QDialog, QApplication, QPushButton, QVBoxLayout, QListWidget, QListWidgetItem, QTableView
+from PyQt5.QtWidgets import QMainWindow, QDialog, QApplication, QPushButton, QVBoxLayout, QListWidget, QListWidgetItem, QTableView, QTableWidget
 from PyQt5.QtWidgets import QTableWidget,QTableWidgetItem
 
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 import matplotlib.pyplot as plt
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 Ui_MainWindow, QtBaseClass = uic.loadUiType("interface.ui")
 
@@ -27,6 +28,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.table.setRowCount(100)
         self.table.setColumnCount(3)        
         self.table.setHorizontalHeaderLabels(("Nome Disciplina", "Carga Horaria", "Nota"))
+        
+	
                 
 	def imprime_formatado(nome_disciplina, tamanho, argumento):
 		
@@ -94,7 +97,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 	acumulado_IAA = float(acumulado_IAA) + round(float(acumulado),2)	
 	
 	self.table.setItem(len(lista_codigo_disciplinas)-1,0, QTableWidgetItem("IA: " + str(round(float(IA)/float(acumulado),2))))
-	self.table.setItem(len(lista_codigo_disciplinas)-1,1, QTableWidgetItem("IAA: " + str(round(float(IAA)/float(acumulado_IAA),2))))
+	self.table.setItem(len(lista_codigo_disciplinas)-1,1, QTableWidgetItem("IAA: " + str(round(float(IAA)/float(acumulado_IAA),2))))	
+        
+	#self.table.item(0,0).setBackground(QtGui.QColor(125,125,125))
+	self.table.resizeColumnToContents(0)
+	self.table.resizeColumnToContents(1)
+	self.table.resizeColumnToContents(2)
+	
 	
 	self.table.show()        
 	
