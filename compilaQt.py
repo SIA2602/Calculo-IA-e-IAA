@@ -18,10 +18,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         #super(QMainWindow, self).__init__(parent)
         QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
-        self.setupUi(self)        
-
-        #responsavel pela geracao do grafico   
-        #self.label.setText("Binario")      
+        self.setupUi(self)                   
         
         tableItem 	= QTableWidgetItem()
         
@@ -29,14 +26,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.table.resize(400, 250)
         self.table.setRowCount(100)
         self.table.setColumnCount(3)        
-        self.table.setHorizontalHeaderLabels(("Nome Disciplina", "Carga Horaria", "Nota"))                
-       
-        
-        #for i in range(10):
-		#	item = QListWidgetItem("Item %i" % i)
-		#	self.list.addItem(item)
-        
-        
+        self.table.setHorizontalHeaderLabels(("Nome Disciplina", "Carga Horaria", "Nota"))
+                
 	def imprime_formatado(nome_disciplina, tamanho, argumento):
 		
 		for i in range(int(tamanho)-int(len((nome_disciplina)))):
@@ -72,17 +63,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 	
 	for i in range (len(codigo_disciplina)):
 
-		if( nome_disciplina[i] != '0' and carga_horaria[i] != '0' and nota[i] != '0' ):
-			print str(codigo_disciplina[i]), str(nome_disciplina[i]),
+		if( nome_disciplina[i] != '0' and carga_horaria[i] != '0' and nota[i] != '0' ):			
 			
 			lista_codigo_disciplinas.append(str(codigo_disciplina[i]))
 			self.table.setItem(i-1,0, QTableWidgetItem(str(nome_disciplina[i])))
 			self.table.setItem(i-1,1, QTableWidgetItem(str(int(carga_horaria[i]))))
-			self.table.setItem(i-1,2, QTableWidgetItem(str(float(nota[i]))))
-			
-			
-			imprime_formatado(nome_disciplina[i], tamanho_espacamento, ' ')
-			print int(carga_horaria[i]), '|', float(nota[i])		
+			self.table.setItem(i-1,2, QTableWidgetItem(str(float(nota[i]))))	
+					
 		else:
 
 			IAA = float(IAA) + round(float(IA),2)	
@@ -92,17 +79,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 				lista_codigo_disciplinas.append(str(" "))
 				self.table.setItem(i-1,0, QTableWidgetItem("IA: " + str(round(float(IA)/float(acumulado),2))))
 				self.table.setItem(i-1,1, QTableWidgetItem("IAA: " + str(round(float(IAA)/float(acumulado_IAA),2))))
-				print "IA: ", round(float(IA)/float(acumulado),2),
-				print "IAA: ", round(float(IAA)/float(acumulado_IAA),2)
 				
-				#item = QListWidgetItem("IA: %r " %round(float(IA)/float(acumulado),2))
-				#self.list.addItem(item)
 				IA = 0.0
-				acumulado = 0.0 
-			print
-			imprime_formatado(codigo_disciplina[i], 83, '_')
-			print str(codigo_disciplina[i])		
-			#print
+				acumulado = 0.0 		
 
 		#estatistica IA e IAA				
 		IA = float(IA)+float(calcula_IA(nota[i], carga_horaria[i]))
@@ -110,19 +89,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 		
 	lista_codigo_disciplinas.append(str(" "))	
 	self.table.setVerticalHeaderLabels(lista_codigo_disciplinas)
+		
+	IAA = float(IAA) + round(float(IA),2)	
+	acumulado_IAA = float(acumulado_IAA) + round(float(acumulado),2)	
+	
 	self.table.setItem(len(lista_codigo_disciplinas)-1,0, QTableWidgetItem("IA: " + str(round(float(IA)/float(acumulado),2))))
 	self.table.setItem(len(lista_codigo_disciplinas)-1,1, QTableWidgetItem("IAA: " + str(round(float(IAA)/float(acumulado_IAA),2))))
 	
-	IAA = float(IAA) + round(float(IA),2)	
-	acumulado_IAA = float(acumulado_IAA) + round(float(acumulado),2)	
-	print "IA: ", round(float(IA)/float(acumulado),2),
-	print "IAA: ", round(float(IAA)/float(acumulado_IAA),2)
-	
-	self.table.show() 
-				
-		
-
-        
+	self.table.show()        
 	
 
 
